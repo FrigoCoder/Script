@@ -20,10 +20,10 @@ function getDaysSince ($sinceString) {
 
 function createImage ($daysInt) {
     $days = strval($daysInt);
-    $image = loadImage($days[0]);
+    $image = loadImage("$days[0].png");
     for( $i = 1; $i < strlen($days); $i++ ){
         $image = mergeImages($image, imagecreatefrompng("padding.png"));
-        $image = mergeImages($image, loadImage($days[$i]));
+        $image = mergeImages($image, loadImage("$days[$i].png"));
     }
     return $image;
 }
@@ -33,8 +33,8 @@ function outputImage ($image) {
     imagepng($image);
 }
 
-function loadImage ($number) {
-    return imagecreatefrompng("$number.png");
+function loadImage ($file) {
+    return imagecreatefrompng($file);
 }
 
 function mergeImages ($left, $right) {
@@ -49,6 +49,9 @@ function mergeImages ($left, $right) {
 
     imagecopy($image, $left, 0, 0, 0, 0, $leftxs, $leftys);
     imagecopy($image, $right, $leftxs, 0, 0, 0, $rightxs, $rightys);
+
+    imagedestroy($left);
+    imagedestroy($right);
 
     return $image;
 }
