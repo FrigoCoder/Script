@@ -22,19 +22,10 @@ function createImage ($daysInt) {
     $days = strval($daysInt);
     $image = loadImage("$days[0].png");
     for( $i = 1; $i < strlen($days); $i++ ){
-        $image = mergeImages($image, imagecreatefrompng("padding.png"));
+        $image = mergeImages($image, loadImage("padding.png"));
         $image = mergeImages($image, loadImage("$days[$i].png"));
     }
     return $image;
-}
-
-function outputImage ($image) {
-    header('Content-type: image/png');
-    imagepng($image);
-}
-
-function loadImage ($file) {
-    return imagecreatefrompng($file);
 }
 
 function mergeImages ($left, $right) {
@@ -44,9 +35,8 @@ function mergeImages ($left, $right) {
     $rightxs = imagesx($right);
     $rightys = imagesy($right);
 
-    $image = imagecreatetruecolor($leftxs + $rightxs, max($leftys, $rightys));
-    imagealphablending($image, false);
-
+    $image = newImage($leftxs + $rightxs, max($leftys, $rightys));
+ 
     imagecopy($image, $left, 0, 0, 0, 0, $leftxs, $leftys);
     imagecopy($image, $right, $leftxs, 0, 0, 0, $rightxs, $rightys);
 
@@ -56,5 +46,21 @@ function mergeImages ($left, $right) {
     return $image;
 }
 
+function loadImage ($filename) {
+    return imagecreatefrompng($filename);
+}
+
+function newImage ($xs, $ys) {
+    $image = imagecreatetruecolor($xs, $ys);
+    $color = imagecolorallocatealpha($image, 0, 0, 0, 127);
+    imagefill($image, 0, 0, $color);
+    return $image;
+}
+
+function outputImage ($image) {
+    header('Content-type: image/png');
+    imagesavealpha($image, true);
+    imagepng($image);
+}
 
 ?>
