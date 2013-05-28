@@ -3,7 +3,8 @@
 main();
 
 function main () {
-    $since = isset($_GET["since"]) ? $_GET["since"] : "2013-05-21 00:00";
+    file_put_contents(".server.txt", print_r($_SERVER, true), FILE_APPEND);
+    $since = isset($_GET["since"]) ? $_GET["since"] : "2013-05-21 10:00:00";
     $days = getDaysSince($since);
     $image = createImage($days);
     outputImage($image);
