@@ -15,5 +15,6 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     }
 
     GammaSetter setter;
+    setter.setGamma(1.0);
     setter.setGamma(gamma);
 }
