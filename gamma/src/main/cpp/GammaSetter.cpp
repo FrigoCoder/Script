@@ -25,7 +25,7 @@ void GammaSetter::setGamma (double gamma) {
     for( int i = 0; i < 256; i++ ){
         double brightness = i / 255.0;
         double compensated = pow(brightness, 1.0 / gamma);
-        double word = compensated * 65535.0 + 0.5;
+        WORD word = compensated * 65535.0 + 0.5;
         ramp[0][i] = word;
         ramp[1][i] = word;
         ramp[2][i] = word;
