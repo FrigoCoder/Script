@@ -6,8 +6,7 @@
 
 GammaSetter::GammaSetter () {
     hGDI32 = ::LoadLibrary("gdi32.dll");
-    pGetDeviceGammaRamp = (DeviceGammaRampFunction) GetProcAddress(hGDI32, "GetDeviceGammaRamp");
-    pSetDeviceGammaRamp = (DeviceGammaRampFunction) GetProcAddress(hGDI32, "SetDeviceGammaRamp");
+    setDeviceGammaRamp = (DeviceGammaRampFunction) GetProcAddress(hGDI32, "SetDeviceGammaRamp");
 }
 
 GammaSetter::~GammaSetter () {
@@ -16,7 +15,7 @@ GammaSetter::~GammaSetter () {
 
 void GammaSetter::setRamp (WORD ramp[3][256]) {
     HDC hGammaDC = GetDC(NULL);
-    pSetDeviceGammaRamp(hGammaDC, ramp);
+    setDeviceGammaRamp(hGammaDC, ramp);
     ReleaseDC(NULL, hGammaDC);
 }
 

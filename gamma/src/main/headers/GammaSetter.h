@@ -16,8 +16,7 @@ class GammaSetter {
         typedef BOOL (WINAPI *DeviceGammaRampFunction) (HDC hDC, LPVOID lpRamp);
 
         HMODULE hGDI32;
-        DeviceGammaRampFunction pGetDeviceGammaRamp;
-        DeviceGammaRampFunction pSetDeviceGammaRamp;
+        DeviceGammaRampFunction setDeviceGammaRamp;
 
 };
 
