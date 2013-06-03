@@ -197,8 +197,9 @@ class MathRenderer {
 			$output = $this->sanitizeForPre($output);
 			$error = "";
 			$error .= "<strong class=\"error\">Command returned with error code $result</strong>\n";
-			$error .= "<textarea>$command</textarea>\n";
+			$error .= "<textarea>$this->document</textarea>\n";
 			$error .= "<textarea>$output</textarea>\n";
+			$error .= "<textarea>$command</textarea>\n";
 			throw new MathRendererException($error);
 		}
 		return $output;
